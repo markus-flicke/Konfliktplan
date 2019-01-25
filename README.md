@@ -1,6 +1,6 @@
 # Konfliktplan
 
---------------------  Prerequisites  -------------------
+--------------------  Prerequisites  -------------------<br>
 Die folgenden Dateien müssen vorliegen:<br>
 	Credentials.txt<br>
 	Regelstudienplaene.csv<br>
