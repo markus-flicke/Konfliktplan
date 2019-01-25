@@ -1,15 +1,18 @@
+import argparse
+
 from Mail import Mail
 import pandas as pd
 from Conflict import Conflict
 
+DEVMODE = False
 
 class Konfliktplan:
-    MAILTO = 'markus.flicke.marburg@gmail.com'
-    VERANSTALTUNGSLISTE_PATH = 'Veranstaltungsliste_Fb12_Sose2019_20181206.csv'
+    VERANSTALTUNGSLISTE_PATH = 'Veranstaltungen-SoSe19-20190125.csv'
     REGELSTUDIENPLAN_PATH = 'regelstudienplaene_3.csv'
 
-    def __init__(self, term='Sommer'):
+    def __init__(self, term='Sommer', mailto = 'markus.flicke.marburg@gmail.com'):
         self.term = term
+        self.mailto = mailto
         self.veranstaltungen, self.regel_studienplan = self._load()
 
     def run(self):
@@ -31,16 +34,14 @@ class Konfliktplan:
 
     def _find_conflicts(self):
         res = []
-        degrees = self.regel_studienplan.groupby('Studiengang')
-        for d_name, degree in degrees:
+        for d_name, degree in self.regel_studienplan.groupby('Studiengang'):
             for v_name, variant in degree.groupby('Variante'):
                 for s_name, semester in variant.groupby('Semester'):
                     for i in range(len(semester)):
                         for j in range(i + 1, len(semester)):
-                            conflicts = self._title_conflicts(semester.iloc[i].Titel, semester.iloc[j].Titel)
-                            if conflicts:
-                                for conflict in conflicts:
-                                    res.append(Conflict(conflict, d_name, v_name, s_name))
+                            conflicting_events = self._title_conflicts(semester.iloc[i].Titel, semester.iloc[j].Titel)
+                            for conflicting_event in conflicting_events:
+                                res.append(Conflict(conflicting_event, d_name, v_name, s_name))
         return res
 
     def _title_conflicts(self, title_a, title_b):
@@ -73,7 +74,7 @@ class Konfliktplan:
 
         body += df.to_html(index=False)
         body += "</body></html>"
-        Mail.send(body, subject='Konfliktplan', to=self.MAILTO)
+        Mail.send(body, subject='Konfliktplan', to=self.mailto)
 
     def _load(self):
         veranstaltungen = pd.read_csv(self.VERANSTALTUNGSLISTE_PATH)
@@ -97,5 +98,18 @@ class Konfliktplan:
         return veranstaltungen, regel_studienplan
 
 
+def devmode():
+    global DEVMODE
+    DEVMODE = True
+    print('\nDeveloper mode enabled')
+    return True
+
+def argparser():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-mailto', help = 'Email', action = 'store_const')
+    return parser.parse_args()
+
+
 if __name__ == '__main__':
-    Konfliktplan().run()
+    mailto = 'markus.flicke.marburg@gmail.com'#argparser().mailto
+    Konfliktplan(mailto=mailto).run()
