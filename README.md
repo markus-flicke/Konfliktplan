@@ -22,3 +22,6 @@ Die folgenden Dateien müssen vorliegen:<br>
 6. Starten des Programmes:
 	Aus der Kommandozeile:
 		python konfliktplan.py
+
+--------------------  DataTypes  -----------------------<br>
+Die Eingabedateien Regelstudienplaene.csv, Veranstaltungen.csv müssen im CSV Format vorliegen um lesbar zu sein.
