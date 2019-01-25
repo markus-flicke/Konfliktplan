@@ -1,5 +1,3 @@
-import argparse
-
 from DataReader import DataReader
 from Mail import Mail
 import pandas as pd
@@ -98,19 +96,6 @@ class Konfliktplan:
             regel_studienplan[['Variante', 'Semester']].apply(relevant_subject, axis=1)]
         return veranstaltungen, regel_studienplan
 
-
-def devmode():
-    global DEVMODE
-    DEVMODE = True
-    print('\nDeveloper mode enabled')
-    return True
-
-def argparser():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-mailto', help = 'Email', action = 'store_const')
-    return parser.parse_args()
-
-
 if __name__ == '__main__':
-    mailto = 'markus.flicke.marburg@gmail.com'#argparser().mailto
+    mailto = DataReader.read_mailto()
     Konfliktplan(mailto=mailto).run()
