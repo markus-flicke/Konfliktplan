@@ -2,4 +2,6 @@
 *.csv
 *.xls
 *.xlsx
-Archive/
+Regelstudienplaene/
+Veranstaltungen/
+Credentials/
