@@ -19,8 +19,8 @@ Die folgenden Dateien müssen vorliegen:<br>
 
 	Dabei ist der Dateiname egal und nur der Zielordner entscheidend. Die Dateien sollte der User schon haben, bevor der Installationsprozess beginnt.
 5. Die Datei Konfliktplan/recipient.txt soll der Emailadresse des aktuellen Users angepasst werden. 
-6. Starten des Programmes:
-	Aus der Kommandozeile:
+6. Starten des Programmes:<br>
+	Aus der Kommandozeile:<br>
 		python konfliktplan.py
 
 --------------------  DataTypes  -----------------------<br>
