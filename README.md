@@ -1,10 +1,10 @@
 # Konfliktplan
 
 --------------------  Prerequisites  -------------------
-Die folgenden Dateien müssen vorliegen:
-	Credentials.txt
-	Regelstudienplaene.csv
-	Veranstaltungen.csv
+Die folgenden Dateien müssen vorliegen:<br>
+	Credentials.txt<br>
+	Regelstudienplaene.csv<br>
+	Veranstaltungen.csv<br>
 
 
 --------------------  Installation  --------------------
